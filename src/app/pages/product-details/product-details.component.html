@@ -1,0 +1,24 @@
+<h1>Page d'affichage du produit</h1>
+<div>
+  <p>Veuillez saisir le produit dont vous voulez les informations :</p>
+  <select (change)="onChangeSelect($event)">
+    <option *ngFor="let product of productList" [value]="product.id">{{product.name}}</option>
+  </select>
+
+  <div>
+    <p>
+      ID : {{product.id}}<br />
+      Nom : {{product.name}}<br />
+      Prix : {{product.price}} €<br />
+      Promotion :{{product.discount}}
+    </p>
+
+    <form (ngSubmit)="onSubmitDiscount()">
+      <input type=" text" name="discount" placeholder="Nouvelle promotion" />
+      <button type="submit">Modifier promotion</button>
+    </form>
+    <p>
+      Quantité en stock : {{product.quantity_stock}}
+    </p>
+  </div>
+</div>
