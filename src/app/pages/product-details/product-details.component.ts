@@ -12,6 +12,8 @@ export class ProductDetailsComponent implements OnInit {
   product: Product = {};
   displayError1: boolean = false;
   displayError2: boolean = false;
+  displayError3: boolean = false;
+  errorDiscount: string = "Le pourcentage doit etre un nombre en 0 et 100"
   error: string = "La quantité doit être un nombre supérieure à 0";
 
 
@@ -44,14 +46,30 @@ export class ProductDetailsComponent implements OnInit {
 
   onClickModifyDiscount() {
     //console.log(JSON.stringify(this.form.getRawValue()));
-    const value = (<HTMLInputElement>document.getElementById('discount')).value;
-    console.log("modify clicked " + value);
+    const discount = parseFloat((<HTMLInputElement>document.getElementById('discount')).value);
+    if (isNaN(discount) || discount > 100 || discount < 0) {
+      this.displayError3 = true;
+    } else {
+
+      this.productsService.modifyDiscount(this.product.tig_id!, discount).subscribe(
+        (product: Product) => {
+          this.product = product;
+          this.displayError3 = false;
+          for (let i = 0; i < this.productList.length; i++) {
+            if (this.productList[i].tig_id === this.product.tig_id) {
+              this.productList[i].discount = product.discount;
+            }
+          }
+        })
+    }
+
+
   }
 
   onClickIncrementQuantityInStock() {
     const quantityInStock = parseInt((<HTMLInputElement>document.getElementById('quantityInStockIncrement')).value);
     if (isNaN(quantityInStock) || quantityInStock === 0) {
-      this.displayError1 = true;
+      this.displayError3 = true;
     } else {
       this.productsService.incrementQuantityInStock(this.product.tig_id!, quantityInStock).subscribe(
         (product: Product) => {

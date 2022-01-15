@@ -17,10 +17,14 @@ export class ProductsService {
   }
 
   incrementQuantityInStock(productId: number, quantityInStock: number) {
-    return this.http.get<Product>(`${this.baseUrl}/incrementStock/${productId}/${quantityInStock}`);
+    return this.http.get<Product>(`${this.baseUrl}/incrementStock/${productId}/${quantityInStock}/`);
   }
 
   decrementQuantityInStock(productId: number, quantityInStock: number) {
-    return this.http.get<Product>(`${this.baseUrl}/decrementStock/${productId}/${quantityInStock}`);
+    return this.http.get<Product>(`${this.baseUrl}/decrementStock/${productId}/${quantityInStock}/`);
+  }
+
+  modifyDiscount(productId: number , discount:number) {
+    return this.http.get<Product>(`${this.baseUrl}/modifyDiscount/${productId}/${discount}/`);
   }
 }
