@@ -12,11 +12,12 @@
       tig_id : {{product.tig_id}}<br />
       Nom : {{product.name}}<br />
       Prix : {{product.price}} €<br />
-      Promotion : {{product.discount}}
+      Promotion : {{product.discount}} %
     </p>
 
     <div>
       <input type="text" id="discount" placeholder="Nouvelle promotion" />
+      <p *ngIf="displayError3" style="color: red;">{{errorDiscount}}</p>
       <button type="button" (click)="onClickModifyDiscount()">Modifier promotion</button>
     </div>
 
