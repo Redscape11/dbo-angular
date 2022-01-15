@@ -1,24 +1,37 @@
 <h1>Page d'affichage du produit</h1>
 <div>
-  <p>Veuillez saisir le produit dont vous voulez les informations :</p>
-  <select (change)="onChangeSelect($event)">
-    <option *ngFor="let product of productList" [value]="product.id">{{product.name}}</option>
-  </select>
-
+  <div>
+    <p>Veuillez saisir le produit dont vous voulez les informations :</p>
+    <select (change)="onChangeSelect($event)">
+      <option *ngFor="let product of productList" [value]="product.tig_id">{{product.name}}</option>
+    </select>
+  </div>
   <div>
     <p>
       ID : {{product.id}}<br />
+      tig_id : {{product.tig_id}}<br />
       Nom : {{product.name}}<br />
       Prix : {{product.price}} €<br />
-      Promotion :{{product.discount}}
+      Promotion : {{product.discount}}
     </p>
 
-    <form (ngSubmit)="onSubmitDiscount()">
-      <input type=" text" name="discount" placeholder="Nouvelle promotion" />
-      <button type="submit">Modifier promotion</button>
-    </form>
+    <div>
+      <input type="text" id="discount" placeholder="Nouvelle promotion" />
+      <button type="button" (click)="onClickModifyDiscount()">Modifier promotion</button>
+    </div>
+
     <p>
-      Quantité en stock : {{product.quantity_stock}}
+      Quantité en stock : {{product.quantityInStock}}
     </p>
+    <div>
+      <input type="number" id="quantityInStockIncrement" placeholder="Nouvelle quantité" />
+      <p *ngIf="displayError1" style="color: red;">{{error}}</p>
+      <button type="button" (click)="onClickIncrementQuantityInStock()">Ajouter</button>
+    </div>
+    <div>
+      <input type="number" id="quantityInStockDecrement" placeholder="Nouvelle quantité" />
+      <p *ngIf="displayError2" style="color: red;">{{error}}</p>
+      <button type="button" (click)="onClickDecrementQuantityInStock()">Enlever</button>
+    </div>
   </div>
 </div>
